@@ -1,0 +1,53 @@
+.menu-sidebar {
+    opacity: 1;
+    background: rgba(179, 184, 193, 0.127);
+    color: rgb(52, 71, 103);
+    -webkit-box-align: center;
+    align-items: center;
+    width: auto;
+    padding: 0.675rem 0.8rem 0.675rem 1rem;
+    margin: 0px 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: rgba(0, 0, 0, 0.05) rgb(196, 203 ,215 ,0.05)0rem 1.25rem 1.6875rem 0rem;
+}
+.css-45fs7h-MuiDrawer-docked .MuiDrawer-paper{
+    padding: 15px;
+
+}
+.item-menu-sidebar {
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.avatar-mui-icon{
+    left: 8px;
+}
+.headersidebar{
+    opacity: 1;
+    background: rgba(179, 184, 193, 0.127);
+    color: rgb(52, 71, 103);
+    -webkit-box-align: center;
+    align-items: center;
+    width: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: rgba(0, 0, 0, 0.05) rgb(196, 203 ,215 ,0.05)0rem 1.25rem 1.6875rem 0rem; 
+}
+.css-9mgopn-MuiDivider-root{
+    padding: 10px;
+}

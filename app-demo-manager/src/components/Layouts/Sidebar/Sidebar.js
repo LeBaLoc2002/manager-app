@@ -8,12 +8,12 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Avatar } from '@mui/material';
+import { Avatar, ListItemAvatar } from '@mui/material';
+import ImageIcon from '@mui/icons-material/Image';
 
+
+import './Sidebar.scss'
 const Sidebar = ({setOpen , open}) => {
     const theme = useTheme();
     const drawerWidth = 200;
@@ -78,19 +78,19 @@ const Sidebar = ({setOpen , open}) => {
     };
       
     return(
-        <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+        <Drawer variant="permanent" open={open} className='sidebar'>
+        <DrawerHeader className='headersidebar' >
         <Avatar className='right-7' src="/static/images/avatar/1.jpg" />
           
           <DrawerHeaderIcon>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
+
           </DrawerHeaderIcon>
         </DrawerHeader>
-        
         <Divider />
-        <List>
+        <List className='menu-sidebar'>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -100,22 +100,20 @@ const Sidebar = ({setOpen , open}) => {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+            <ListItemAvatar >
+                <Avatar className='avatar-mui-icon'>
+                    <ImageIcon />
+                </Avatar>
+            </ListItemAvatar>
+                
+                
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
+        <List className='menu-sidebar'>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -125,15 +123,11 @@ const Sidebar = ({setOpen , open}) => {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                <ListItemAvatar >
+                <Avatar className='avatar-mui-icon'>
+                    <ImageIcon />
+                </Avatar>
+                </ListItemAvatar>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
