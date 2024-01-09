@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Divider, Layout, Menu, Table, theme } from 'antd';
+import { Button, Divider, Layout, Menu, Table, theme } from 'antd';
 import './MainContent.scss'
+import {MenuFoldOutlined,MenuUnfoldOutlined} from '@ant-design/icons';
 const { Header, Content, Sider } = Layout;
 const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
   (icon, index) => ({
@@ -44,19 +45,21 @@ const data = [
     address: 'New York No. 1 Lake Park',
   }
 ]
-const App = () => {
+const MainContent = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
     <Layout>
-      <Sider className='sidebar' breakpoint="lg"
-        collapsedWidth="0">
+      <Sider className='sidebar'  trigger={null} collapsible collapsed={collapsed} >
         <div className="demo-logo-vertical" />
         <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} items={items} />
       </Sider>
       <Layout>
-        <Header 
+      <Header 
+       
           style={{
             padding: 0,
             background: colorBgContainer,
@@ -67,7 +70,19 @@ const App = () => {
             display:'flex',
             alignItems:'center',
           }}
-        />
+        >
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+       </Header>
+
         <Content
           style={{
             margin: '85px 16px 0',
@@ -75,7 +90,6 @@ const App = () => {
             maxWidth:'100%'
           }}
         >
-
           <div
             style={{
               padding: 24,
@@ -92,4 +106,4 @@ const App = () => {
     </Layout>
   );
 };
-export default App;
+export default MainContent;
