@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Button, Divider, Layout, Menu, Table, theme } from 'antd';
-import './MainContent.scss'
-import {MenuFoldOutlined,MenuUnfoldOutlined} from '@ant-design/icons';
-const { Header, Content, Sider } = Layout;
-const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-  (icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-  }),
-);
+import { Layout, Divider, Table, theme } from 'antd';
+import './MainContent.scss';
+import SiderLayout from '../Layouts/Sidebar/Sidebar';
+import HeaderLayout from '../Layouts/Header/Header';
+
+const { Content } = Layout;
+
 const columns = [
   {
-    title: 'name' ,
-    dataIndex:'name'
+    title: 'name',
+    dataIndex: 'name',
   },
   {
     title: 'Age',
@@ -24,70 +19,60 @@ const columns = [
     title: 'Address',
     dataIndex: 'address',
   },
-]
+  {
+    title: 'action',
+    dataIndex: 'action',
+  },
+];
+
 const data = [
   {
     key: '1',
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
+    action: 'delete',
   },
   {
     key: '2',
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
+    action: 'delete',
+
   },
   {
     key: '3',
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
-  }
-]
+    action: 'delete',
+
+  },
+];
+
 const MainContent = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const tableHeader = () => (
+    <div className='text-left'>
+      <h3>Table test</h3>
+    </div>
+  );
   return (
     <Layout>
-      <Sider className='sidebar'  trigger={null} collapsible collapsed={collapsed} >
-        <div className="demo-logo-vertical" />
-        <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} items={items} />
-      </Sider>
+      <SiderLayout collapsed={collapsed} />
       <Layout>
-      <Header 
-       
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            position: 'fixed',
-            top:0,
-            zIndex: 1,
-            width: '100%',
-            display:'flex',
-            alignItems:'center',
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
-       </Header>
-
+        <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content
           style={{
             margin: '85px 16px 0',
-            maxHeight:'100%',
-            maxWidth:'100%'
+            maxHeight: '100%',
+            maxWidth: '100%',
           }}
         >
           <div
@@ -98,12 +83,18 @@ const MainContent = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-           <Divider>Middle size table</Divider>
-            <Table columns={columns} dataSource={data} size="middle" />
+            <Table
+                          title={tableHeader}
+              columns={columns}
+              dataSource={data}
+              size="middle"
+              scroll={{ x: true }} 
+            />
           </div>
         </Content>
       </Layout>
     </Layout>
   );
 };
+
 export default MainContent;
