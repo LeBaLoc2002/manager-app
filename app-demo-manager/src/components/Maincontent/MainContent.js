@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Layout, Divider, Table, theme, Button } from 'antd';
+import { Layout, Table, theme, Button } from 'antd';
 import './MainContent.scss';
 import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import Overlay from '../Layouts/Overlay/Overlay';
 
 const { Content } = Layout;
 
@@ -73,16 +74,21 @@ const MainContent = () => {
       <h3>Table test</h3>
     </div>
   );
+
+
   return (
     <Layout>
       <SiderLayout collapsed={collapsed} />
       <Layout>
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Overlay isOpen={!collapsed} toggle={() => setCollapsed(!collapsed)} />
+
         <Content
           style={{
             margin: '85px 16px 0',
             maxHeight: '100%',
             maxWidth: '100%',
+            position: 'relative',
           }}
         >
           <div
@@ -91,14 +97,15 @@ const MainContent = () => {
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              zIndex: 1,
             }}
           >
             <Table
-                          title={tableHeader}
+              title={tableHeader}
               columns={columns}
               dataSource={data}
               size="middle"
-              scroll={{ x: true }} 
+              scroll={{ x: true }}
             />
           </div>
         </Content>
