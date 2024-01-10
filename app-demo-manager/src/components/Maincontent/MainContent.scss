@@ -8,6 +8,13 @@
     border-radius: 6px;
 }
 :where(.css-dev-only-do-not-override-dkbvqv).ant-layout .ant-layout-sider-children{
-    /* color: rgba(0, 0, 0, 0.88); */
     background: #ffffff;
+}
+.text-left{
+    text-align: left ;
+}
+.action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center !important;
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Layout, Divider, Table, theme } from 'antd';
+import { Layout, Divider, Table, theme, Button } from 'antd';
 import './MainContent.scss';
 import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
@@ -20,8 +21,17 @@ const columns = [
     dataIndex: 'address',
   },
   {
-    title: 'action',
+    title: 'Action',
     dataIndex: 'action',
+    render: () => (
+      <span className='action-buttons'>
+        <Button  type="primary" ghost><EditOutlined  /></Button>
+        <Button   danger>
+        <DeleteOutlined />
+        </Button>
+      </span>
+    ),
+    colSpan: 2, 
   },
 ];
 
