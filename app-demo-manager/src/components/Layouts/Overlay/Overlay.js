@@ -1,8 +1,8 @@
 import React from 'react';
 import './Overlay.scss';
 
-function Overlay({ isOpen, toggle }) {
-  return isOpen ? <div className={`overlay ${isOpen ? 'active' : ''}`} onClick={toggle}></div> : null;
-}
+const Overlay = ({ showOverlay, onClick }) => {
+  return showOverlay ? <div className="overlay" onClick={onClick}></div> : null;
+};
 
 export default Overlay;

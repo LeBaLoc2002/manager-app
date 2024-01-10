@@ -4,7 +4,7 @@ import './MainContent.scss';
 import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import Overlay from '../Layouts/Overlay/Overlay';
+import Overlay from '../Layouts/Overlay/Overlay'; 
 
 const { Content } = Layout;
 
@@ -50,7 +50,6 @@ const data = [
     age: 32,
     address: 'New York No. 1 Lake Park',
     action: 'delete',
-
   },
   {
     key: '3',
@@ -58,7 +57,6 @@ const data = [
     age: 32,
     address: 'New York No. 1 Lake Park',
     action: 'delete',
-
   },
 ];
 
@@ -75,14 +73,12 @@ const MainContent = () => {
     </div>
   );
 
-
   return (
     <Layout>
       <SiderLayout collapsed={collapsed} />
       <Layout>
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Overlay isOpen={!collapsed} toggle={() => setCollapsed(!collapsed)} />
-
+        <Overlay showOverlay={!collapsed} onClick={() => setCollapsed(!collapsed)} />
         <Content
           style={{
             margin: '85px 16px 0',
@@ -98,6 +94,7 @@ const MainContent = () => {
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
               zIndex: 1,
+              
             }}
           >
             <Table
