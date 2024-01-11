@@ -1,40 +1,12 @@
 import React, { useState } from 'react';
-import { Layout, Table, theme, Button } from 'antd';
+import { Layout, Table, theme, Button, Row, Col, Card } from 'antd';
 import './MainContent.scss';
 import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Overlay from '../Layouts/Overlay/Overlay'; 
-import TableHeader from '../Layouts/TableHeader/TableHeader'
 const { Content } = Layout;
 
-const columns = [
-  {
-    title: 'name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    render: () => (
-      <span className='action-buttons'>
-        <Button  type="primary" ghost><EditOutlined  /></Button>
-        <Button   danger>
-        <DeleteOutlined />
-        </Button>
-      </span>
-    ),
-    colSpan: 2, 
-  },
-];
 
 const data = [
   {
@@ -63,12 +35,6 @@ const data = [
 const MainContent = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
-
-
   return (
     <Layout>
       <SiderLayout collapsed={collapsed} />
@@ -83,24 +49,24 @@ const MainContent = () => {
             position: 'relative',
           }}
         >
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-              zIndex: 1,
-              
-            }}
-          >
-            <Table
-              title={TableHeader}
-              columns={columns}
-              dataSource={data}
-              size="middle"
-              scroll={{ x: true }}
-            />
-          </div>
+          <Row gutter={16}>
+            {data.map((item) => (
+              <Col key={item.key} xs={24} sm={12} md={8} lg={8} xl={8}>
+              <Card
+                  title={item.name}
+                  bordered={false}
+                  style={{ marginBottom: 16 }}
+                >
+                  <p><strong>Age:</strong> {item.age}</p>
+                  <p><strong>Address:</strong> {item.address}</p>
+                  <div className='action-buttons'>
+                    <Button type="primary" ghost><EditOutlined /></Button>
+                    <Button danger><DeleteOutlined /></Button>
+                  </div>
+              </Card>
+              </Col>
+            ))}
+          </Row>
         </Content>
       </Layout>
     </Layout>
