@@ -5,7 +5,7 @@ import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Overlay from '../Layouts/Overlay/Overlay'; 
-
+import TableHeader from '../Layouts/TableHeader/TableHeader'
 const { Content } = Layout;
 
 const columns = [
@@ -67,11 +67,7 @@ const MainContent = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const tableHeader = () => (
-    <div className='text-left'>
-      <h3>Table test</h3>
-    </div>
-  );
+
 
   return (
     <Layout>
@@ -98,7 +94,7 @@ const MainContent = () => {
             }}
           >
             <Table
-              title={tableHeader}
+              title={TableHeader}
               columns={columns}
               dataSource={data}
               size="middle"
