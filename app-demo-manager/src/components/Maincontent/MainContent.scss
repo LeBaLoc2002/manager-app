@@ -1,0 +1,20 @@
+.demo-logo-vertical {
+    height: 32px;
+    background: rgba(140, 134, 134, 0.2);
+    border-radius: 6px;
+    margin-inline-end: 24px;
+    height: 32px;
+    margin: 16px;
+    border-radius: 6px;
+}
+:where(.css-dev-only-do-not-override-dkbvqv).ant-layout .ant-layout-sider-children{
+    background: #ffffff;
+}
+.text-left{
+    text-align: left ;
+}
+.action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center !important;
+}
