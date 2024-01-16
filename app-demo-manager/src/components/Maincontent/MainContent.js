@@ -5,8 +5,8 @@ import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Overlay from '../Layouts/Overlay/Overlay';
-import { useDispatch } from 'react-redux';
-import { setCocktail } from '../../app/features/cocktailSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCocktail, setCocktail, setSearchResults } from '../../app/features/cocktailSlice';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import CardSearch from '../Layouts/CardSearch/CardSearch';
@@ -19,22 +19,36 @@ const MainContent = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
+  const { searchResults } = useSelector(selectCocktail);
+
   const { data: cocktailsData, isLoading, isError } = useQuery({
-    queryKey:'cocktail',
+    queryKey: 'cocktails',
     queryFn: async () => {
-        try{
-          const response = await axios.get(`${process.env.REACT_APP_URL_GET_LIST}`);
-          dispatch(setCocktail(response.data.drinks));
-          return response.data.drinks;
-        }catch(error) {
-          console.log(error);
-          toast.error('Error deleting data ', error,{
-            autoClose: 500,
-          })    
-       }
-      },
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_URL_GET_LIST}`);
+        dispatch(setCocktail(response.data.drinks));
+        return response.data.drinks;
+      } catch (error) {
+        console.log(error);
+        toast.error('Error fetching data', error, {
+          autoClose: 500,
+        });
+      }
+    },
+  });
+  
+
+  const handleSearch = async (query) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_URL_SEARCH_NAME}+${query}`);
+      dispatch(setSearchResults(response.data.drinks));
+    } catch (error) {
+      console.log(error);
+      toast.error('Error searching cocktails', error, {
+        autoClose: 500,
+      });
     }
-  );
+  };
 
   useEffect(() => {
     queryClient.invalidateQueries({queryKey: ['cocktails']});
@@ -59,31 +73,45 @@ const MainContent = () => {
           {isLoading && <Spin size="large" />}
           {isError && <p>Error fetching cocktails</p>}
            {!isLoading &&!isError && (
-            <CardSearch/>
+          <CardSearch onSearch={handleSearch} />
           )}
           {!isLoading && !isError && (
             <Row gutter={16}>
-              {cocktailsData.map((cocktail, index) => (
-                <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} className='colCard'>
-                  <Card className='cardId size-16 '
-                    title={`Product ${cocktail.idDrink}`}
-                    bordered={false}
-                  >
-                  <Image className='scale-50 image-card '
-                    sizes='small'
-                      src={`${cocktail.strDrinkThumb}`}
-                    />
-                    <p><strong>Name:</strong> {cocktail.strDrink}</p>
-                    <p><strong>Category:</strong> {cocktail.strCategory}</p>
-                    
-                    <div className='action-buttons'>
-                      <Button type="primary" ghost><EditOutlined /></Button>
-                      <Button danger><DeleteOutlined /></Button>
-                    </div>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+            {searchResults.length > 0
+              ? searchResults.map((cocktail, index) => (
+                  <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} className='colCard'>
+                    <Card className='cardId size-16 '
+                      title={`Product ${cocktail.idDrink}`}
+                      bordered={false}
+                    >
+                      <Image className='scale-50 image-card ' sizes='small' src={`${cocktail.strDrinkThumb}`} />
+                      <p><strong>Name:</strong> {cocktail.strDrink}</p>
+                      <p><strong>Category:</strong> {cocktail.strCategory}</p>
+                      <div className='action-buttons'>
+                        <Button type="primary" ghost><EditOutlined /></Button>
+                        <Button danger><DeleteOutlined /></Button>
+                      </div>
+                    </Card>
+                  </Col>
+                ))
+              : cocktailsData.map((cocktail, index) => (
+                  <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} className='colCard'>
+                    <Card className='cardId size-16 '
+                      title={`Product ${cocktail.idDrink}`}
+                      bordered={false}
+                    >
+                      <Image className='scale-50 image-card ' sizes='small' src={`${cocktail.strDrinkThumb}`} />
+                      <p><strong>Name:</strong> {cocktail.strDrink}</p>
+                      <p><strong>Category:</strong> {cocktail.strCategory}</p>
+                      <div className='action-buttons'>
+                        <Button type="primary" ghost><EditOutlined /></Button>
+                        <Button danger><DeleteOutlined /></Button>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+          </Row>
+          
           )}
         </Content>
       </Layout>
