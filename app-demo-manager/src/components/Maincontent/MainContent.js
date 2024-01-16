@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setCocktail } from '../../app/features/cocktailSlice';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import TableHeader from '../Layouts/CardSearch/CardSearch';
+import CardSearch from '../Layouts/CardSearch/CardSearch';
 
 const { Content } = Layout;
 
@@ -37,16 +37,16 @@ const MainContent = () => {
       <SiderLayout collapsed={collapsed} />
       <Layout>
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
-        <Overlay showOverlay={!collapsed} onClick={() => setCollapsed(!collapsed)} />
         <Content
           style={{
             margin: '85px 16px 0',
             maxHeight: '100%',
             maxWidth: '100%',
-            position: 'relative',
+            position: 'relative'
           }}
-        >
-          <TableHeader/>
+        > 
+        <Overlay showOverlay={!collapsed} onClick={() => setCollapsed(!collapsed)} />
+        <CardSearch/>
           {isLoading && <Spin size="large" />}
           {isError && <p>Error fetching cocktails</p>}
           {!isLoading && !isError && (

@@ -4,9 +4,9 @@ const { Search } = Input;
 
 function CardSearch() {
 
-  const onSearch = () => {
-    return null;
-  };
+  const onSearch = (e) => {
+    return null
+    };
   return (
     <div className='search-input text-left max-w-80'>
       <Search

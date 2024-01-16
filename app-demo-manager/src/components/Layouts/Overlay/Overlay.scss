@@ -1,19 +1,14 @@
 .overlay {
-  position: fixed;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0; 
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.3s ease; 
-  display: none;
+  display: block;
 }
-
 @media only screen and (max-width: 600px) {
-  .overlay {
-    opacity: 1; 
-    display: block;
-  }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999; 
+    }
 }
