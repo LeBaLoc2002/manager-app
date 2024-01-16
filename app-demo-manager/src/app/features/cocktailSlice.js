@@ -13,6 +13,6 @@ const cocktailSlice = createSlice({
   },
 });
 
-export const { setCocktail, setSearchTerm } = cocktailSlice.actions;
+export const { setCocktail } = cocktailSlice.actions;
 export const selectCocktail = (state) => state.cocktails;
 export default cocktailSlice.reducer;
