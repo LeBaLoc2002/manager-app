@@ -34,7 +34,7 @@ const MainContent = () => {
 
   return (
     <Layout>
-      <SiderLayout collapsed={collapsed} />
+      <SiderLayout collapsed={!collapsed} />
       <Layout>
         <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content
@@ -42,13 +42,16 @@ const MainContent = () => {
             margin: '85px 16px 0',
             maxHeight: '100%',
             maxWidth: '100%',
-            position: 'relative'
+            position: 'relative',
+            padding: '10px',
           }}
         > 
-        <Overlay showOverlay={!collapsed} onClick={() => setCollapsed(!collapsed)} />
-        <CardSearch/>
+        <Overlay showOverlay={collapsed} onClick={() => setCollapsed(collapsed)} />
           {isLoading && <Spin size="large" />}
           {isError && <p>Error fetching cocktails</p>}
+           {!isLoading &&!isError && (
+            <CardSearch/>
+          )}
           {!isLoading && !isError && (
             <Row gutter={16}>
               {cocktailsData.map((cocktail, index) => (
