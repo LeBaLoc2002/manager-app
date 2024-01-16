@@ -4,17 +4,14 @@ const { Search } = Input;
 
 function CardSearch() {
 
-  const onSearch = (e) => {
-    return null
-    };
   return (
     <div className='search-input text-left max-w-80'>
       <Search
         placeholder="input search text"
         allowClear
         enterButton="Search"
-        size="large"
-        onSearch={onSearch} />
+        onSearch={null}
+        size="large"/>
     </div>
   );
 }

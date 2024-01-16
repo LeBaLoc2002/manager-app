@@ -10,6 +10,7 @@ import { setCocktail } from '../../app/features/cocktailSlice';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import CardSearch from '../Layouts/CardSearch/CardSearch';
+import { toast } from 'react-toastify';
 
 const { Content } = Layout;
 
@@ -21,12 +22,20 @@ const MainContent = () => {
   const { data: cocktailsData, isLoading, isError } = useQuery({
     queryKey:'cocktail',
     queryFn: async () => {
-      const response = await axios.get(`${process.env.REACT_APP_URL_GET_LIST}`);
-      dispatch(setCocktail(response.data.drinks));
-      return response.data.drinks;
+        try{
+          const response = await axios.get(`${process.env.REACT_APP_URL_GET_LIST}`);
+          dispatch(setCocktail(response.data.drinks));
+          return response.data.drinks;
+        }catch(error) {
+          console.log(error);
+          toast.error('Error deleting data ', error,{
+            autoClose: 500,
+          })    
+       }
       },
     }
   );
+
   useEffect(() => {
     queryClient.invalidateQueries({queryKey: ['cocktails']});
   }, [queryClient]);
@@ -55,7 +64,7 @@ const MainContent = () => {
           {!isLoading && !isError && (
             <Row gutter={16}>
               {cocktailsData.map((cocktail, index) => (
-                <Col key={index} xs={24} sm={12} md={8} lg={8} xl={8} className='colCard'>
+                <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6} className='colCard'>
                   <Card className='cardId size-16 '
                     title={`Product ${cocktail.idDrink}`}
                     bordered={false}
