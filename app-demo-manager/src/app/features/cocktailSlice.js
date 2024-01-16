@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const cocktailSlice = createSlice({
-    name: 'cocktail',
+    name: 'cocktails',
     initialState: [] ,
     reducers: {
         setCocktail : (state, action) => {

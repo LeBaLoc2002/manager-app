@@ -5,31 +5,32 @@ import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Overlay from '../Layouts/Overlay/Overlay';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCocktail, selectCocktail } from '../../app/features/cocktailSlice';
+import { useDispatch } from 'react-redux';
+import { setCocktail } from '../../app/features/cocktailSlice';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import TableHeader from '../Layouts/CardSearch/CardSearch';
 
 const { Content } = Layout;
 
 const MainContent = () => {
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
-  const cocktails = useSelector(selectCocktail);
   const queryClient = useQueryClient();
 
   const { data: cocktailsData, isLoading, isError } = useQuery({
     queryKey:'cocktail',
     queryFn: async () => {
-      const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=b');
+      const response = await axios.get(`${process.env.REACT_APP_URL_GET_LIST}`);
       dispatch(setCocktail(response.data.drinks));
       return response.data.drinks;
       },
     }
   );
   useEffect(() => {
-    queryClient.invalidateQueries('cocktails');
-  }, [cocktails, queryClient]);
+    queryClient.invalidateQueries({queryKey: ['cocktails']});
+  }, [queryClient]);
+
 
   return (
     <Layout>
@@ -45,6 +46,7 @@ const MainContent = () => {
             position: 'relative',
           }}
         >
+          <TableHeader/>
           {isLoading && <Spin size="large" />}
           {isError && <p>Error fetching cocktails</p>}
           {!isLoading && !isError && (
