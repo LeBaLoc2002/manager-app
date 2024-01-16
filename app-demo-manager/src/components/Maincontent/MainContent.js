@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Button, Row, Col, Card, Spin } from 'antd';
+import { Layout, Button, Row, Col, Card, Spin ,Image} from 'antd';
 import './MainContent.scss';
 import SiderLayout from '../Layouts/Sidebar/Sidebar';
 import HeaderLayout from '../Layouts/Header/Header';
@@ -27,7 +27,6 @@ const MainContent = () => {
       },
     }
   );
-
   useEffect(() => {
     queryClient.invalidateQueries('cocktails');
   }, [cocktails, queryClient]);
@@ -51,14 +50,18 @@ const MainContent = () => {
           {!isLoading && !isError && (
             <Row gutter={16}>
               {cocktailsData.map((cocktail, index) => (
-                <Col key={index} xs={24} sm={12} md={8} lg={8} xl={8}>
-                  <Card
-                    title={`Cocktail ${index + 1}`}
+                <Col key={index} xs={24} sm={12} md={8} lg={8} xl={8} className='colCard'>
+                  <Card className='cardId size-16 '
+                    title={`Product ${cocktail.idDrink}`}
                     bordered={false}
-                    style={{ marginBottom: 16 }}
                   >
+                  <Image className='scale-50 image-card '
+                    sizes='small'
+                      src={`${cocktail.strDrinkThumb}`}
+                    />
                     <p><strong>Name:</strong> {cocktail.strDrink}</p>
                     <p><strong>Category:</strong> {cocktail.strCategory}</p>
+                    
                     <div className='action-buttons'>
                       <Button type="primary" ghost><EditOutlined /></Button>
                       <Button danger><DeleteOutlined /></Button>
