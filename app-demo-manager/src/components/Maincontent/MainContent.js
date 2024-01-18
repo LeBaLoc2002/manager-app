@@ -41,7 +41,7 @@ const MainContent = () => {
 
   useEffect(() => {
     queryClient.invalidateQueries({queryKey: ['cocktails']});
-  }, [queryClient]);
+  });
 
 
   return (
