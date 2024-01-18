@@ -6,7 +6,7 @@ import HeaderLayout from '../Layouts/Header/Header';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Overlay from '../Layouts/Overlay/Overlay';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCocktail, setCocktail, setSearchResults } from '../../app/features/cocktailSlice';
+import { selectCocktail, setCocktail } from '../../app/features/cocktailSlice';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import CardSearch from '../Layouts/CardSearch/CardSearch';
@@ -38,17 +38,6 @@ const MainContent = () => {
   });
   
 
-  const handleSearch = async (query) => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_URL_SEARCH_NAME}+${query}`);
-      dispatch(setSearchResults(response.data.drinks));
-    } catch (error) {
-      console.log(error);
-      toast.error('Error searching cocktails', error, {
-        autoClose: 500,
-      });
-    }
-  };
 
   useEffect(() => {
     queryClient.invalidateQueries({queryKey: ['cocktails']});
@@ -73,7 +62,7 @@ const MainContent = () => {
           {isLoading && <Spin size="large" />}
           {isError && <p>Error fetching cocktails</p>}
            {!isLoading &&!isError && (
-          <CardSearch onSearch={handleSearch} />
+          <CardSearch />
           )}
           {!isLoading && !isError && (
             <Row gutter={16}>
